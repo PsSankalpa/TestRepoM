@@ -37,20 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-//		auth.inMemoryAuthentication().withUser("Piyum").password(passwordEncoder().encode("test@123")).authorities("restaurant");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		/*
-		 * "/FoodiFy/Service/**" for services that use without token
-		 * "/FoodiFy/User/**" for functions that use by logged in normal user
-		 * "/FoodiFy/Restaurant/**" for functions that use by logged in Restaurant
-		 * "/FoodiFy/Premium/**" for functions that use by logged in premium user
-		 * "/FoodiFy/Admin/**" for functions that use by logged in admin
-		 * 
-		 * */
 		
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers(
          "/Test1/Register/Signupuser",
@@ -64,9 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().anyRequest().authenticated();
 		
 		http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
-		// TODO Auto-generated method stub
-//		http.authorizeRequests().anyRequest().authenticated();
-//		http.formLogin();
+
 	}
 	
 
